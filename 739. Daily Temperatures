@@ -1,0 +1,28 @@
+#define pb push_back
+
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temps) {
+        int n = temps.size();
+        vector<int> waitdays(n,0);
+        stack<int> s;
+        
+        int i=0;
+        while(i<n){
+            if(s.empty()){
+                s.push(i);
+                i++;
+            }
+            else{
+                while(!s.empty() && temps[i] > temps[s.top()]){
+                    waitdays[s.top()] = i-s.top();
+                    s.pop();
+                } 
+                s.push(i);
+                i++;
+            }
+        }
+        
+        return waitdays;
+    }
+};
